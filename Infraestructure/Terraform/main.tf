@@ -1,7 +1,7 @@
 provider "aws" {
   access_key                  = "test"
   secret_key                  = "test"
-  region                      = "us-east-1"
+  region                      = var.region
   skip_credentials_validation = true
   skip_metadata_api_check     = true
   s3_use_path_style           = true
@@ -22,4 +22,13 @@ module "dynamo_db" {
   source = "./modules/dynamo_db"
 
   infra_env = var.infra_env
+}
+
+module "lambda_functions" {
+  source = "./modules/lambda_functions"
+
+  infra_env = var.infra_env
+  region = var.region
+  scheduled_tasks_table_arn = module.dynamo_db.scheduled_tasks_table_arn
+  scheduled_tasks_table_name = module.dynamo_db.scheduled_tasks_table_name
 }
