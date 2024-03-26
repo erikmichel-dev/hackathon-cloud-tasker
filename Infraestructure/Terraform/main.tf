@@ -32,3 +32,11 @@ module "lambda_functions" {
   scheduled_tasks_table_arn = module.dynamo_db.scheduled_tasks_table_arn
   scheduled_tasks_table_name = module.dynamo_db.scheduled_tasks_table_name
 }
+
+module "api_gateway" {
+  source = "./modules/api_gateway"
+
+  infra_env = var.infra_env
+  create_scheduled_task_name = module.lambda_functions.create_scheduled_task_name
+  create_scheduled_task_invoke_arn = module.lambda_functions.create_scheduled_task_invoke_arn
+}

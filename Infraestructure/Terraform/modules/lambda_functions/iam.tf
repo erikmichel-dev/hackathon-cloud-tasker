@@ -49,10 +49,7 @@ resource "aws_iam_role_policy_attachment" "list_scheduled_task_cloudwatch_logs" 
   role       = aws_iam_role.list_scheduled_task.name
   policy_arn = aws_iam_policy.cloudwatch_logs.arn
 }
-# resource "aws_iam_role_policy_attachment" "list_scheduled_task" {
-#   role       = aws_iam_role.populate_coffee_pool.name
-#   policy_arn = aws_iam_policy.batchwrite_coffee_pool.arn
-# }
+
 
 resource "aws_iam_policy" "cloudwatch_logs" {
   name        = "cloudwatch_logs_policy-${var.infra_env}"
