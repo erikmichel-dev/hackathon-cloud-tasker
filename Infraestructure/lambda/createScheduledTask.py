@@ -19,10 +19,9 @@ cron_regex = '(@(annually|yearly|monthly|weekly|daily|hourly|reboot))|(@every (\
 
 def lambda_handler(event, context):
     print(f'Event: {event}')
-    scheduled_task = json.loads(event['body'])
-    print(f'Body: {scheduled_task}')
-    
+
     try:
+        scheduled_task = retrieve_payload(event)
         validate_schema(scheduled_task, scheduled_task_schema)
         validate_cron_expression(scheduled_task['cron_expression'])
     except Exception as e:
@@ -48,20 +47,26 @@ def lambda_handler(event, context):
             }
         )
         print(dynamodb_response)
+
+        return {
+            'statusCode': 201,
+            'body': json.dumps('Task successfully created')
+        }
+    
     except ClientError as e:
         print(f'ERROR: {e}')
         return {
             'statusCode': 500,
             'body': json.dumps(f'Internal server error: {e}')
         }
-    
-    return {
-        'statusCode': 201,
-        'body': json.dumps('Task successfully created')
-    }
 
-
-
+def retrieve_payload(event):
+    if event.get("body"):
+        scheduled_task = json.loads(event['body'])
+        print(f'Body: {scheduled_task}')
+    else:
+        raise Exception('Missing payload: Please ensure the request body contains a valid payload')
+    return scheduled_task
 
 def validate_schema(data, schema):
     for key, expected_type in schema.items():
