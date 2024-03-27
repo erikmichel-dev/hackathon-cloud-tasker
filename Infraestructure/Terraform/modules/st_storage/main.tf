@@ -33,3 +33,21 @@ resource "aws_dynamodb_table" "scheduled_tasks" {
     Environment = var.infra_env
   }
 }
+
+
+### S3_Buckets
+
+# resource "random_id" "this" {
+#   byte_length = 8
+# }
+
+resource "aws_s3_bucket" "scheduled_tasks" {
+  bucket        = "taskstorage"
+  force_destroy = true
+
+  tags = {
+    Name        = "ScheduledTasks"
+    Project     = var.project_name
+    Environment = var.infra_env
+  }
+}
