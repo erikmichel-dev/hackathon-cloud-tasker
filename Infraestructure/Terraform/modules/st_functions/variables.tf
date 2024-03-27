@@ -22,3 +22,13 @@ variable "scheduled_tasks_table_arn" {
   type        = string
   description = "Dynamodb scheduled tasks table arn"
 }
+
+variable "scheduled_tasks_bucket_arn" {
+  type        = string
+  description = "S3 scheduled tasks bucket arn"
+}
+
+variable "scheduled_tasks_bucket_id" {
+  type        = string
+  description = "S3 scheduled tasks bucket id"
+}

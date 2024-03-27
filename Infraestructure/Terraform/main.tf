@@ -31,11 +31,11 @@ module "st_functions" {
   infra_env    = var.infra_env
   project_name = local.project_name
 
-  region                      = var.region
-  scheduled_tasks_table_name  = module.st_storage.scheduled_tasks_table_name
-  scheduled_tasks_table_arn   = module.st_storage.scheduled_tasks_table_arn
-  scheduled_tasks_bucket_name = module.st_storage.scheduled_tasks_s3_name
-  scheduled_tasks_bucket_arn  = module.st_storage.scheduled_tasks_s3_arn
+  region                     = var.region
+  scheduled_tasks_table_name = module.st_storage.scheduled_tasks_table_name
+  scheduled_tasks_table_arn  = module.st_storage.scheduled_tasks_table_arn
+  scheduled_tasks_bucket_id  = module.st_storage.scheduled_tasks_bucket_id
+  scheduled_tasks_bucket_arn = module.st_storage.scheduled_tasks_bucket_arn
 }
 
 module "st_api" {
@@ -46,14 +46,14 @@ module "st_api" {
   st_create_lambda_name       = module.st_functions.st_create_lambda_name
   st_create_lambda_invoke_arn = module.st_functions.st_create_lambda_invoke_arn
   st_list_lambda_name         = module.st_functions.st_list_lambda_name
-  st_list_lambda_invoke_arn   = module.st_functions.stst_list_lambda_invoke_arn
+  st_list_lambda_invoke_arn   = module.st_functions.st_list_lambda_invoke_arn
 }
 
 module "st_events" {
   source = "./modules/st_events"
 
-  infra_env                    = var.infra_env
-  project_name                 = local.project_name
-  st_execute_lambda_name       = module.st_functions.execute_scheduled_task_invoke_arn
-  st_execute_lambda_invoke_arn = module.st_functions.execute_scheduled_task_name
+  infra_env              = var.infra_env
+  project_name           = local.project_name
+  st_execute_lambda_name = module.st_functions.st_execute_lambda_name
+  st_execute_lambda_arn  = module.st_functions.st_execute_lambda_arn
 }

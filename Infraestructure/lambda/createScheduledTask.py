@@ -1,5 +1,4 @@
 from botocore.exceptions import ClientError
-from datetime import datetime
 import boto3
 import uuid
 import json
@@ -11,9 +10,10 @@ scheduled_task_schema = {
     'cron_expression': str 
 }
 
+table_name = os.environ["SCHEDULED_TASK_TABLE_NAME"]
+
 session = boto3.Session(region_name=os.environ['REGION'])
 dynamodb_client = session.client('dynamodb')
-table_name = os.environ["SCHEDULED_TASK_TABLE_NAME"]
 
 cron_regex = '(@(annually|yearly|monthly|weekly|daily|hourly|reboot))|(@every (\d+(ns|us|µs|ms|s|m|h))+)|((((\d+,)+\d+|(\d+(\/|-)\d+)|\d+|\*) ?){5,7})'
 

@@ -58,7 +58,7 @@ resource "aws_api_gateway_integration" "listtask" {
   uri                     = var.st_list_lambda_invoke_arn
 }
 
-resource "aws_lambda_permission" "apigw_create_scheduled_task" {
+resource "aws_lambda_permission" "apigw_st_create" {
   statement_id  = "AllowExecutionFromAPIGateway"
   action        = "lambda:InvokeFunction"
   function_name = var.st_create_lambda_name
@@ -66,7 +66,7 @@ resource "aws_lambda_permission" "apigw_create_scheduled_task" {
   source_arn    = "${aws_api_gateway_rest_api.this.execution_arn}/*/*/*"
 }
 
-resource "aws_lambda_permission" "apigw_list_scheduled_task" {
+resource "aws_lambda_permission" "apigw_st_list" {
   statement_id  = "AllowExecutionFromAPIGateway"
   action        = "lambda:InvokeFunction"
   function_name = var.st_list_lambda_name

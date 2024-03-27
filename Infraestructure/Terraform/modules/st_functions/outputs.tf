@@ -13,3 +13,11 @@ output "st_list_lambda_name" {
 output "st_list_lambda_invoke_arn" {
   value = aws_lambda_function.st_list.invoke_arn
 }
+
+output "st_execute_lambda_name" {
+  value = aws_lambda_function.st_execute.function_name
+}
+
+output "st_execute_lambda_arn" {
+  value = aws_lambda_function.st_execute.arn
+}
