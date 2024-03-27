@@ -1,4 +1,4 @@
-resource "aws_iam_role" "create_scheduled_task" {
+resource "aws_iam_role" "st_create" {
   name               = "lambda_create_scheduled_task_role-${var.infra_env}"
   assume_role_policy = <<EOF
 {
@@ -17,7 +17,7 @@ resource "aws_iam_role" "create_scheduled_task" {
 EOF
 }
 
-resource "aws_iam_role" "list_scheduled_task" {
+resource "aws_iam_role" "st_list" {
   name               = "lambda_list_scheduled_task_role-${var.infra_env}"
   assume_role_policy = <<EOF
 {
@@ -36,24 +36,23 @@ resource "aws_iam_role" "list_scheduled_task" {
 EOF
 }
 
-resource "aws_iam_role_policy_attachment" "create_scheduled_task_cloudwatch_logs" {
-  role       = aws_iam_role.create_scheduled_task.name
+resource "aws_iam_role_policy_attachment" "st_create__cloudwatch_logs" {
+  role       = aws_iam_role.st_create.name
   policy_arn = aws_iam_policy.cloudwatch_logs.arn
 }
-resource "aws_iam_role_policy_attachment" "create_scheduled_task_dynamodb" {
-  role       = aws_iam_role.create_scheduled_task.name
-  policy_arn = aws_iam_policy.create_scheduled_task_dynamodb.arn
+resource "aws_iam_role_policy_attachment" "st_create_task_dynamodb" {
+  role       = aws_iam_role.st_create.name
+  policy_arn = aws_iam_policy.st_create_dynamodb.arn
 }
 
-resource "aws_iam_role_policy_attachment" "list_scheduled_task_cloudwatch_logs" {
-  role       = aws_iam_role.list_scheduled_task.name
+resource "aws_iam_role_policy_attachment" "st_list_cloudwatch_logs" {
+  role       = aws_iam_role.st_list.name
   policy_arn = aws_iam_policy.cloudwatch_logs.arn
 }
-resource "aws_iam_role_policy_attachment" "list_scheduled_task_dynamodb" {
-  role       = aws_iam_role.list_scheduled_task.name
-  policy_arn = aws_iam_policy.list_scheduled_task_dynamodb.arn
+resource "aws_iam_role_policy_attachment" "st_list_task_dynamodb" {
+  role       = aws_iam_role.st_list.name
+  policy_arn = aws_iam_policy.st_list_dynamodb.arn
 }
-
 
 resource "aws_iam_policy" "cloudwatch_logs" {
   name        = "cloudwatch_logs_policy-${var.infra_env}"
@@ -77,7 +76,7 @@ resource "aws_iam_policy" "cloudwatch_logs" {
 EOF
 }
 
-resource "aws_iam_policy" "create_scheduled_task_dynamodb" {
+resource "aws_iam_policy" "st_create_dynamodb" {
 
   name        = "lambda_create_scheduled_task-${var.infra_env}"
   path        = "/"
@@ -98,7 +97,7 @@ resource "aws_iam_policy" "create_scheduled_task_dynamodb" {
 EOF
 }
 
-resource "aws_iam_policy" "list_scheduled_task_dynamodb" {
+resource "aws_iam_policy" "st_list_dynamodb" {
 
   name        = "lambda_list_scheduled_task-${var.infra_env}"
   path        = "/"

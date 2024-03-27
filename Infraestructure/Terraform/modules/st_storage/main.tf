@@ -1,3 +1,5 @@
+### DynamoDB
+
 resource "aws_dynamodb_table" "scheduled_tasks" {
   name         = "ScheduledTasks-${var.infra_env}"
   billing_mode = "PAY_PER_REQUEST"

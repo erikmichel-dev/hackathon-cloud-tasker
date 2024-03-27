@@ -8,22 +8,22 @@ variable "project_name" {
   description = "Project name"
 }
 
-variable "create_scheduled_task_name" {
+variable "st_create_lambda_name" {
   type        = string
   description = "CreateScheduledTask lambda name"
 }
 
-variable "create_scheduled_task_invoke_arn" {
+variable "st_create_lambda_invoke_arn" {
   type        = string
   description = "CreateScheduledTask lambda invoke arn"
 }
 
-variable "list_scheduled_task_name" {
+variable "st_list_lambda_name" {
   type        = string
   description = "ListScheduledTask lambda name"
 }
 
-variable "list_scheduled_task_invoke_arn" {
+variable "st_list_lambda_invoke_arn" {
   type        = string
   description = "ListScheduledTask lambda invoke arn"
 }

@@ -45,7 +45,7 @@ resource "aws_api_gateway_integration" "createtask" {
 
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
-  uri                     = var.create_scheduled_task_invoke_arn
+  uri                     = var.st_create_lambda_invoke_arn
 }
 
 resource "aws_api_gateway_integration" "listtask" {
@@ -55,13 +55,13 @@ resource "aws_api_gateway_integration" "listtask" {
 
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
-  uri                     = var.list_scheduled_task_invoke_arn
+  uri                     = var.st_list_lambda_invoke_arn
 }
 
 resource "aws_lambda_permission" "apigw_create_scheduled_task" {
   statement_id  = "AllowExecutionFromAPIGateway"
   action        = "lambda:InvokeFunction"
-  function_name = var.create_scheduled_task_name
+  function_name = var.st_create_lambda_name
   principal     = "apigateway.amazonaws.com"
   source_arn    = "${aws_api_gateway_rest_api.this.execution_arn}/*/*/*"
 }
@@ -69,7 +69,7 @@ resource "aws_lambda_permission" "apigw_create_scheduled_task" {
 resource "aws_lambda_permission" "apigw_list_scheduled_task" {
   statement_id  = "AllowExecutionFromAPIGateway"
   action        = "lambda:InvokeFunction"
-  function_name = var.list_scheduled_task_name
+  function_name = var.st_list_lambda_name
   principal     = "apigateway.amazonaws.com"
   source_arn    = "${aws_api_gateway_rest_api.this.execution_arn}/*/*/*"
 }
