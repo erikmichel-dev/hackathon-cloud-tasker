@@ -7,7 +7,7 @@ data "archive_file" "create_scheduled_task" {
 
 data "archive_file" "list_scheduled_task" {
   type             = "zip"
-  source_file       = "./../lambda/listScheduledTask.py"
+  source_file      = "./../lambda/listScheduledTask.py"
   output_file_mode = "0666"
   output_path      = "./src/listScheduledTask.zip"
 }
@@ -27,6 +27,12 @@ resource "aws_lambda_function" "create_scheduled_task" {
       REGION                    = var.region
     }
   }
+
+  tags = {
+    Name        = "createScheduledTask"
+    Project     = var.project_name
+    Environment = var.infra_env
+  }
 }
 
 resource "aws_lambda_function" "list_scheduled_task" {
@@ -43,5 +49,11 @@ resource "aws_lambda_function" "list_scheduled_task" {
       SCHEDULED_TASK_TABLE_NAME = var.scheduled_tasks_table_name
       REGION                    = var.region
     }
+  }
+
+  tags = {
+    Name        = "listScheduledTask"
+    Project     = var.project_name
+    Environment = var.infra_env
   }
 }

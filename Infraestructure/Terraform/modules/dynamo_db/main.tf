@@ -24,4 +24,10 @@ resource "aws_dynamodb_table" "scheduled_tasks" {
     name = "task_id"
     type = "S"
   }
+
+  tags = {
+    Name        = "ScheduledTasks"
+    Project     = var.project_name
+    Environment = var.infra_env
+  }
 }

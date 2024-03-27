@@ -22,12 +22,15 @@ module "dynamo_db" {
   source = "./modules/dynamo_db"
 
   infra_env = var.infra_env
+  project_name = local.project_name
 }
 
 module "lambda_functions" {
   source = "./modules/lambda_functions"
 
   infra_env = var.infra_env
+  project_name = local.project_name
+
   region = var.region
   scheduled_tasks_table_arn = module.dynamo_db.scheduled_tasks_table_arn
   scheduled_tasks_table_name = module.dynamo_db.scheduled_tasks_table_name
@@ -37,6 +40,7 @@ module "api_gateway" {
   source = "./modules/api_gateway"
 
   infra_env = var.infra_env
+  project_name = local.project_name
   create_scheduled_task_name = module.lambda_functions.create_scheduled_task_name
   create_scheduled_task_invoke_arn = module.lambda_functions.create_scheduled_task_invoke_arn
   list_scheduled_task_name = module.lambda_functions.list_scheduled_task_name

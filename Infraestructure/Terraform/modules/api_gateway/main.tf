@@ -4,6 +4,12 @@ resource "aws_api_gateway_rest_api" "this" {
   endpoint_configuration {
     types = ["REGIONAL"]
   }
+
+  tags = {
+    Name        = "TaskAPI"
+    Project     = var.project_name
+    Environment = var.infra_env
+  }
 }
 
 resource "aws_api_gateway_resource" "createtask" {
@@ -75,7 +81,7 @@ resource "aws_api_gateway_deployment" "this" {
   ]
 
   rest_api_id = aws_api_gateway_rest_api.this.id
-  stage_name = var.infra_env
+  stage_name  = var.infra_env
 
   lifecycle {
     create_before_destroy = true
