@@ -9,3 +9,11 @@ variable "create_scheduled_task_name" {
 variable "create_scheduled_task_invoke_arn" {
   description = "CreateScheduledTask lambda invoke arn"
 }
+
+variable "list_scheduled_task_name" {
+  description = "ListScheduledTask lambda name"
+}
+
+variable "list_scheduled_task_invoke_arn" {
+  description = "ListScheduledTask lambda invoke arn"
+}

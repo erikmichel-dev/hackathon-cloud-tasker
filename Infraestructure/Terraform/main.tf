@@ -39,4 +39,6 @@ module "api_gateway" {
   infra_env = var.infra_env
   create_scheduled_task_name = module.lambda_functions.create_scheduled_task_name
   create_scheduled_task_invoke_arn = module.lambda_functions.create_scheduled_task_invoke_arn
+  list_scheduled_task_name = module.lambda_functions.list_scheduled_task_name
+  list_scheduled_task_invoke_arn = module.lambda_functions.list_scheduled_task_invoke_arn
 }

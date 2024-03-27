@@ -49,6 +49,10 @@ resource "aws_iam_role_policy_attachment" "list_scheduled_task_cloudwatch_logs" 
   role       = aws_iam_role.list_scheduled_task.name
   policy_arn = aws_iam_policy.cloudwatch_logs.arn
 }
+resource "aws_iam_role_policy_attachment" "list_scheduled_task_dynamodb" {
+  role       = aws_iam_role.list_scheduled_task.name
+  policy_arn = aws_iam_policy.list_scheduled_task_dynamodb.arn
+}
 
 
 resource "aws_iam_policy" "cloudwatch_logs" {
@@ -84,6 +88,27 @@ resource "aws_iam_policy" "create_scheduled_task_dynamodb" {
 	"Statement": [
 		{
 			"Action": "dynamodb:PutItem",
+			"Resource": [
+        "${var.scheduled_tasks_table_arn}"
+        ],
+			"Effect": "Allow"
+		}
+	]
+}
+EOF
+}
+
+resource "aws_iam_policy" "list_scheduled_task_dynamodb" {
+
+  name        = "lambda_list_scheduled_task-${var.infra_env}"
+  path        = "/"
+  description = "AWS IAM Policy for create_scheduled_task lambda role"
+  policy      = <<EOF
+{
+	"Version": "2012-10-17",
+	"Statement": [
+		{
+			"Action": "dynamodb:Scan",
 			"Resource": [
         "${var.scheduled_tasks_table_arn}"
         ],
