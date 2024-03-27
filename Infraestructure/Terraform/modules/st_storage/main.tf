@@ -1,3 +1,5 @@
+### DynamoDB
+
 resource "aws_dynamodb_table" "scheduled_tasks" {
   name         = "ScheduledTasks-${var.infra_env}"
   billing_mode = "PAY_PER_REQUEST"
@@ -24,6 +26,24 @@ resource "aws_dynamodb_table" "scheduled_tasks" {
     name = "task_id"
     type = "S"
   }
+
+  tags = {
+    Name        = "ScheduledTasks"
+    Project     = var.project_name
+    Environment = var.infra_env
+  }
+}
+
+
+### S3_Buckets
+
+# resource "random_id" "this" {
+#   byte_length = 8
+# }
+
+resource "aws_s3_bucket" "scheduled_tasks" {
+  bucket        = "taskstorage"
+  force_destroy = true
 
   tags = {
     Name        = "ScheduledTasks"

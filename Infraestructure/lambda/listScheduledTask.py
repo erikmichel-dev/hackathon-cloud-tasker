@@ -1,11 +1,11 @@
-from botocore.exceptions import ClientError
 import boto3
 import json
 import os
 
+table_name = os.environ["SCHEDULED_TASK_TABLE_NAME"]
+
 session = boto3.Session(region_name=os.environ['REGION'])
 dynamodb_client = session.client('dynamodb')
-table_name = os.environ["SCHEDULED_TASK_TABLE_NAME"]
 
 def lambda_handler(event, context):
 
