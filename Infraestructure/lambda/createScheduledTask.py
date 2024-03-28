@@ -28,7 +28,7 @@ def lambda_handler(event, context):
         print(f'ERROR: {e}')
         return {
             'statusCode': 400,
-            'body': json.dumps(f'{e}')
+            'body': { 'Error': f'{e}'}
         }
 
     try:
@@ -50,14 +50,14 @@ def lambda_handler(event, context):
 
         return {
             'statusCode': 201,
-            'body': json.dumps('Task successfully created')
+            'body': { 'Message': 'Task successfully created'}
         }
     
     except ClientError as e:
         print(f'ERROR: {e}')
         return {
             'statusCode': 500,
-            'body': json.dumps(f'Internal server error: {e}')
+            'body': { 'Error': f'Internal server error: {e}'}
         }
 
 def retrieve_payload(event):
@@ -79,8 +79,7 @@ def validate_schema(data, schema):
     return
 
 def validate_cron_expression(cron_expression):
-    x = re.search(cron_regex, cron_expression)
-    print('HERE', x)
+    x = re.fullmatch(cron_regex, cron_expression)
     if x == None:
         raise Exception(f"Invalid cron expression: {cron_expression}")
         
