@@ -24,11 +24,11 @@ def lambda_handler(event, context):
         print(f'ERROR: {e}')
         return {
             'statusCode': 500,
-            'body': json.dumps(f'Internal server error: {e}')
+            'body': { 'Error': f'Internal server error: {e}'}
         }
 
     print(f'File uploaded: {file_name}')
     return {
         'statusCode': 200,
-        'body': json.dumps('Task successfully executed')
+        'body': { 'Message': 'Task successfully executed'}
     }
