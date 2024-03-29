@@ -69,6 +69,9 @@ For further testing check the AWS CLI documentation and add the following flag f
 --endpoint-url=http://localhost:4566
 ```
 
+## Version
+- **Terraform**: 1.5.6
+
 
 
 # Original statement of the hackathon challenge (NUWE Hack - CLOUD - TERRAFORM)
